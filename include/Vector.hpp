@@ -22,7 +22,7 @@ class Vector{
         unsigned int n;                 ///< The dimension of the vector (the number of indeces)
         mutable bool canDelete = true;  ///< Whether `delete[] array` should be called in the destructor ot not
     public:
-        Vector(const unsigned int n = 0) = default;
+        Vector(const unsigned int n = 0);
         Vector(const unsigned int n, const T* const array);
         Vector(const Vector<T>& vec);
         Vector(const Vector<T>&& vec);
