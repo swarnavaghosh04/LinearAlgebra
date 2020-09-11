@@ -22,10 +22,37 @@ class Vector{
         unsigned int n;                 ///< The dimension of the vector (the number of indeces)
         mutable bool canDelete = true;  ///< Whether `delete[] array` should be called in the destructor ot not
     public:
+
+        /**
+         * @brief Allocates memory in the heap for an n-dimensional vector.
+         * @param[in] n the dimension of the vector. If 0 (default), then no space is allocated and vector is known to be null
+        */
         Vector(const unsigned int n = 0);
+
+        /**
+         * @brief Turns a single dimensional array into an n-dimensional vector.
+         * @note Memory is not freed at destruction
+         * @param[in] n the dimension of the vector (size of `array`)
+         * @param[in] array the pointer to the start of the array
+        */
         Vector(const unsigned int n, const T* const array);
-        Vector(const Vector<T>& vec);
-        Vector(const Vector<T>&& vec);
+
+        /**
+         * @brief Performs deep copy of data array.
+         * If the datatypes don't match, each element is casted using a C-Style caste while copying.
+        */
+        template<typename U>
+        Vector(const Vector<U>& vec);
+        
+        /**
+         * @brief Reassigns raw data pointer to the new Vector object
+         * If the datatypes don't match, each element is casted using a C-Style caste while copying.
+         * 
+        */
+        template<typename U>
+        Vector(const Vector<U>&& vec);
+
+        
         template<typename U>
         void operator = (const Vector<U>& vec);
         template<typename U>
@@ -62,7 +89,8 @@ Vector<T>::Vector(const unsigned int n, const T* const array) :
 }
 
 template<typename T>
-Vector<T>::Vector(const Vector<T>& vec) :
+template<typename U>
+Vector<T>::Vector(const Vector<U>& vec) :
     n(vec.n)
 {
     array = n==0 ? nullptr : new T[n];
@@ -73,10 +101,21 @@ Vector<T>::Vector(const Vector<T>& vec) :
 }
 
 template<typename T>
-Vector<T>::Vector(const Vector<T>&& vec) :
-    n(vec.n), canDelete(vec.canDelete), array(vec.array)
+template<typename U>
+Vector<T>::Vector(const Vector<U>&& vec) :
+    n(vec.n), canDelete(vec.canDelete), array((T*)vec.array)
 {
     vec.canDelete = false;
+    if(!std::is_same<T,U>::value){
+        if(sizeof(T) == sizeof(U))
+            for(unsigned int i = 0; i < n; i++) array[i] = (T)array[i];
+        else{
+            array = new T[n];
+            vec.canDelete = canDelete;
+            canDelete = true;
+            for(unsigned int i = 0; i < n; i++) array[i] = (T)vec.array[i];
+        }
+    }
     #ifdef DEBUG
     printf("CONSTRUCTED: %dx1 from 0x%x to 0x%x\n", n, &vec, this);
     #endif
@@ -96,16 +135,38 @@ void Vector<T>::operator= (const Vector<U>& vec){
     #endif
 }
 
+/*================================================
+=================== FIX ==========================
+================================================*/
+
 template<typename T>
 template<typename U>
 void Vector<T>::operator= (const Vector<U>&& vec){
-    if(canDelete) delete[] array;
     n = vec.n;
     array = (T*)vec.array;
     canDelete = vec.canDelete;
     vec.canDelete = false;
-    if(!std::is_same<T,U>::value)
-        for(unsigned int i = 0; i < n; i++) array[i] = (T)array[i];
+
+    if(!std::is_same<T,U>::value){
+        if(sizeof(T) == sizeof(U)){
+            if(canDelete) delete[] array;
+            array = (T*)vec.array;
+            canDelete = vec.canDelete;
+            vec.canDelete = false;
+            for(unsigned int i = 0; i < n; i++) array[i] = (T)array[i];
+        }else{
+            array = new T[n];
+            canDelete = true;
+            for(unsigned int i = 0; i < n; i++) array[i] = (T)vec.array[i];
+        }
+    }else{
+        
+        if(canDelete) delete[] array;
+        array = (T*)vec.array;
+        canDelete = vec.canDelete;
+        vec.canDelete = false;
+    }
+    
     #ifdef DEBUG
     printf("MOVED: %dx1 from 0x%x to 0x%x\n", n, &vec, this);
     #endif
