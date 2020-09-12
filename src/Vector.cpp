@@ -37,18 +37,20 @@ template<typename U>
 Vector<T>::Vector(const Vector<U>&& vec) :
     n(vec.n)
 {
-    constexpr bool cond = (sizeof(T) == sizeof(U));
-    constexpr bool flag = !(cond && std::is_same<T,U>::value);
-    if(cond){                     // Reassign array if possible
+    /*
+    if T and U have the same size, then reassign vec.array to `this->array`
+    else allocate new array to `this->array`
+    if T and U are not the same type, then loop through `this->array` and cast each element to T 
+    */
+    if(sizeof(T) == sizeof(U)){     // Reassign array if sizes match
         canDelete = vec.canDelete;
         vec.canDelete = false;
         array = (T*)vec.array;
-        //if(std::is_same<T,U>::value) flag=0;            // If the types are the same, no need to parse each element
-    }else{                                          // Else just create new array
-        array = new T[vec.n];
+    }else{                          // Else just create new array
+        array = n==0 ? nullptr : new T[n];
         canDelete = true;
     }
-    if(flag) for(unsigned int i = 0; i < n; i++) array[i] = (T)vec.array[i]; // Parse each and every element
+    if(!std::is_same<T,U>::value) for(unsigned int i = 0; i < n; i++) array[i] = (T)vec.array[i]; // Recast elements if types don's match
 
     #ifdef VECTOR_DEBUG
     printf(debugMessage2, n, "Move Con:", &vec, vec.array, this, array);
@@ -59,38 +61,35 @@ template<typename T>
 template<typename U>
 void Vector<T>::operator= (const Vector<U>& vec){
     if(n != vec.n){
-        n = vec.n;
         if(canDelete) delete[] array;
-        array = n==0 ? nullptr : new T[n];
+        array = vec.n==0 ? nullptr : new T[vec.n];
     }
+    n = vec.n;
     for(unsigned int i = 0; i < n; i++) array[i] = (T)vec.array[i];
     #ifdef VECTOR_DEBUG
     printf(debugMessage2, n, "Assign Op:", &vec, vec.array, this, array);
     #endif
 }
 
+/*=====================================================
+======================= FIX ===========================
+=====================================================*/
+
 template<typename T>
 template<typename U>
 void Vector<T>::operator= (const Vector<U>&& vec){
-    constexpr bool cond = (sizeof(T) == sizeof(U));
-    constexpr bool flag = !(cond && std::is_same<T,U>::value);
-    if(cond){                     // Reassign array if possible
-        n = vec.n;
-        if(canDelete) delete[] array;
+    
+    if(sizeof(T) == sizeof(U)){     // Reassign array if sizes match
         canDelete = vec.canDelete;
         vec.canDelete = false;
         array = (T*)vec.array;
-        //if(std::is_same<T,U>::value) flag = 0;            // If the types are the same, no need to parse each element
-    }else{
-        if(n != vec.n || !canDelete){               // Else if array can't be reused, create new array
-            if(canDelete) delete[] array;
-            array = new T[vec.n];
-            canDelete = true;
-        }
-        n = vec.n;
+    }else{                          // Else just create new array
+        array = (n==vec.n ? array : (vec.n==0 ? nullptr : new T[vec.n]));
+        canDelete = true;
     }
-    if(flag) for(unsigned int i = 0; i < n; i++) array[i] = (T)vec.array[i];
-    
+    n = vec.n;
+    if(!std::is_same<T,U>::value) for(unsigned int i = 0; i < n; i++) array[i] = (T)vec.array[i]; // Recast elements if types don's match
+
     #ifdef VECTOR_DEBUG
     printf(debugMessage2, n, "Move Op:", &vec, vec.array, this, array);
     #endif
