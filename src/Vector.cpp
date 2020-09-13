@@ -133,6 +133,31 @@ Vector<T> Vector<T>::operator+(const Vector<U>& vec) const{
 }
 
 template<typename T>
+template<typename U>
+Vector<T>& Vector<T>::operator+=(const Vector<U>& vec){
+    if(n != vec.n) throw "[Error] Input Vectors have different dimensions, and therefore operation `+=` cannot be performed";
+    for(int i = 0; i < n; i++) array[i] += (T)vec.array[i];
+    return *this;
+}
+
+template<typename T>
+template<typename U>
+Vector<T> Vector<T>::operator-(const Vector<U>& vec) const{
+    if(n != vec.n) return Vector<T>(0);
+    Vector<T> res(n);
+    for(int i = 0; i < n; i++) res[i] = array[i] - vec[i];
+    return res;
+}
+
+template<typename T>
+template<typename U>
+Vector<T>& Vector<T>::operator-=(const Vector<U>& vec){
+    if(n != vec.n) throw "[Error] Input Vectors have different dimensions, and therefore operation `-=` cannot be performed";
+    for(int i = 0; i < n; i++) array[i] -= (T)vec.array[i];
+    return *this;
+}
+
+template<typename T>
 inline const T* Vector<T>::getArray() const { return array; }
 
 template<typename T>

@@ -3,43 +3,140 @@
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{class_vector_a8718778748a77db3b097c6da93b6c224}\label{class_vector_a8718778748a77db3b097c6da93b6c224}} 
-{\bfseries Vector} (const unsigned int n=0)
-\item 
-\mbox{\Hypertarget{class_vector_a3ab2d262709f9cb3d8772f0dfdfe9035}\label{class_vector_a3ab2d262709f9cb3d8772f0dfdfe9035}} 
-{\bfseries Vector} (const unsigned int n, const T $\ast$const array)
-\item 
+\mbox{\hyperlink{class_vector_a8718778748a77db3b097c6da93b6c224}{Vector}} (const unsigned int n=0)
+\begin{DoxyCompactList}\small\item\em Allocates memory in the heap for an n-\/dimensional vector. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_vector_a3ab2d262709f9cb3d8772f0dfdfe9035}{Vector}} (const unsigned int n, const T $\ast$const array)
+\begin{DoxyCompactList}\small\item\em Turns a single dimensional array into an n-\/dimensional vector. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_vector_a7d938a8d8405cc8e4ec3dc87ce469610}\label{class_vector_a7d938a8d8405cc8e4ec3dc87ce469610}} 
-{\footnotesize template$<$typename U $>$ }\\{\bfseries Vector} (const \mbox{\hyperlink{class_vector}{Vector}}$<$ U $>$ \&vec)
-\item 
+{\footnotesize template$<$typename U $>$ }\\\mbox{\hyperlink{class_vector_a7d938a8d8405cc8e4ec3dc87ce469610}{Vector}} (const \mbox{\hyperlink{class_vector}{Vector}}$<$ U $>$ \&vec)
+\begin{DoxyCompactList}\small\item\em Performs deep copy of data array. Thus, new memory block is allocated If the datatypes don\textquotesingle{}t match, each element is casted using a C-\/\+Style caste while copying. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename U $>$ }\\\mbox{\hyperlink{class_vector_a6def1c4bb2b50483ba82bef4396a7a2c}{Vector}} (const \mbox{\hyperlink{class_vector}{Vector}}$<$ U $>$ \&\&vec)
+\begin{DoxyCompactList}\small\item\em Reassigns raw data pointer to the new \mbox{\hyperlink{class_vector}{Vector}} object. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_vector_a8dde20cd45a1c863c1cfbe1caa872578}\label{class_vector_a8dde20cd45a1c863c1cfbe1caa872578}} 
-{\footnotesize template$<$typename U $>$ }\\void {\bfseries operator=} (const \mbox{\hyperlink{class_vector}{Vector}}$<$ U $>$ \&vec)
-\item 
-\mbox{\Hypertarget{class_vector_a93c1a360221f5e45bf3c73cd03f6e423}\label{class_vector_a93c1a360221f5e45bf3c73cd03f6e423}} 
-{\footnotesize template$<$typename U $>$ }\\void {\bfseries operator=} (const \mbox{\hyperlink{class_vector}{Vector}}$<$ U $>$ \&\&vec)
-\item 
-\mbox{\Hypertarget{class_vector_a295d6e24a7e0fa00e46865fd1d8a1dd1}\label{class_vector_a295d6e24a7e0fa00e46865fd1d8a1dd1}} 
-T \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (const unsigned int i)
-\item 
-\mbox{\Hypertarget{class_vector_a10efa23991023bd32af783f44251b233}\label{class_vector_a10efa23991023bd32af783f44251b233}} 
-const T \& {\bfseries operator\mbox{[}$\,$\mbox{]}} (const unsigned int i) const
-\item 
+{\footnotesize template$<$typename U $>$ }\\void \mbox{\hyperlink{class_vector_a8dde20cd45a1c863c1cfbe1caa872578}{operator=}} (const \mbox{\hyperlink{class_vector}{Vector}}$<$ U $>$ \&vec)
+\begin{DoxyCompactList}\small\item\em Performs deep copy of data array. If the datatypes don\textquotesingle{}t match, each element is casted using a C-\/\+Style cast while copying. A new memory block is not allocated if the size of the orignial {\ttfamily this-\/$>$array} can fit the new data exactly (when vec.\+n == this-\/$>$n). \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename U $>$ }\\void \mbox{\hyperlink{class_vector_a93c1a360221f5e45bf3c73cd03f6e423}{operator=}} (const \mbox{\hyperlink{class_vector}{Vector}}$<$ U $>$ \&\&vec)
+\begin{DoxyCompactList}\small\item\em Reassigns raw data pointer to the new \mbox{\hyperlink{class_vector}{Vector}} object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_vector_afd524fac19e6d3d69db5198ffe2952b0}\label{class_vector_afd524fac19e6d3d69db5198ffe2952b0}} 
+\mbox{\hyperlink{class_vector_afd524fac19e6d3d69db5198ffe2952b0}{$\sim$\+Vector}} ()
+\begin{DoxyCompactList}\small\item\em Frees the raw array only if {\ttfamily can\+Delete} is true. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_vector_a73e356a48d593b238f29b88b9eb429ca}\label{class_vector_a73e356a48d593b238f29b88b9eb429ca}} 
+T \& \mbox{\hyperlink{class_vector_a73e356a48d593b238f29b88b9eb429ca}{operator\mbox{[}$\,$\mbox{]}}} (const unsigned int i)
+\begin{DoxyCompactList}\small\item\em Returns a reference to the element in the array at index {\ttfamily i}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_vector_aff68143d7853c090346b3655732be9d5}\label{class_vector_aff68143d7853c090346b3655732be9d5}} 
+const T \& \mbox{\hyperlink{class_vector_aff68143d7853c090346b3655732be9d5}{operator\mbox{[}$\,$\mbox{]}}} (const unsigned int i) const
+\begin{DoxyCompactList}\small\item\em Returns a {\itshape const} reference to the element in the array at index {\ttfamily i}. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{class_vector_a593d3848a5fdaecd7553e29bb302026c}\label{class_vector_a593d3848a5fdaecd7553e29bb302026c}} 
-unsigned int {\bfseries getN} () const
-\item 
-\mbox{\Hypertarget{class_vector_a905c6cf40e817046f167344e7cc877e9}\label{class_vector_a905c6cf40e817046f167344e7cc877e9}} 
-T $\ast$ {\bfseries get\+Array} ()
-\item 
-\mbox{\Hypertarget{class_vector_abb78e07fd68dd079276371536b2e7258}\label{class_vector_abb78e07fd68dd079276371536b2e7258}} 
-const T $\ast$ {\bfseries get\+Array} () const
-\item 
-\mbox{\Hypertarget{class_vector_a317cbbbe2bb3c44ae83c4d057598a2c4}\label{class_vector_a317cbbbe2bb3c44ae83c4d057598a2c4}} 
-{\footnotesize template$<$typename U $>$ }\\\mbox{\hyperlink{class_vector}{Vector}}$<$ T $>$ {\bfseries operator+} (const \mbox{\hyperlink{class_vector}{Vector}}$<$ U $>$ \&vec2) const
-\item 
-\mbox{\Hypertarget{class_vector_ab9b7469f18c0f9a6d240c041b07ba9f1}\label{class_vector_ab9b7469f18c0f9a6d240c041b07ba9f1}} 
-{\footnotesize template$<$typename F $>$ }\\void {\bfseries fill} (F func)
-\end{DoxyCompactItemize}
+unsigned int \mbox{\hyperlink{class_vector_a593d3848a5fdaecd7553e29bb302026c}{getN}} () const
+\begin{DoxyCompactList}\small\item\em Returns the dimension of the vector. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_vector_a72d73f882a0419602d4af6ed80a908c5}\label{class_vector_a72d73f882a0419602d4af6ed80a908c5}} 
+T $\ast$ \mbox{\hyperlink{class_vector_a72d73f882a0419602d4af6ed80a908c5}{get\+Array}} ()
+\begin{DoxyCompactList}\small\item\em Returns the raw data pointer (memeber {\ttfamily array}). \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_vector_adda0021c3a16a9bbd5d4af67b7b11f75}\label{class_vector_adda0021c3a16a9bbd5d4af67b7b11f75}} 
+const T $\ast$ \mbox{\hyperlink{class_vector_adda0021c3a16a9bbd5d4af67b7b11f75}{get\+Array}} () const
+\begin{DoxyCompactList}\small\item\em Return a pointer to the raw data pointer as a pointer to {\itshape const}. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{class_vector_ad29921c350cd9facce45d3f894bf1363}\label{class_vector_ad29921c350cd9facce45d3f894bf1363}} 
+{\footnotesize template$<$typename U $>$ }\\\mbox{\hyperlink{class_vector}{Vector}}$<$ T $>$ \mbox{\hyperlink{class_vector_ad29921c350cd9facce45d3f894bf1363}{operator+}} (const \mbox{\hyperlink{class_vector}{Vector}}$<$ U $>$ \&vec2) const
+\begin{DoxyCompactList}\small\item\em Adds the 2 vectors and returns a new vector object. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename F $>$ }\\void \mbox{\hyperlink{class_vector_ab9b7469f18c0f9a6d240c041b07ba9f1}{fill}} (F func)
+\begin{DoxyCompactList}\small\item\em Populates the memory block with data. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_vector_a8718778748a77db3b097c6da93b6c224}\label{class_vector_a8718778748a77db3b097c6da93b6c224}} 
+\index{Vector$<$ T $>$@{Vector$<$ T $>$}!Vector@{Vector}}
+\index{Vector@{Vector}!Vector$<$ T $>$@{Vector$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Vector()}{Vector()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{class_vector}{Vector}}$<$ T $>$\+::\mbox{\hyperlink{class_vector}{Vector}} (\begin{DoxyParamCaption}\item[{const unsigned int}]{n = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+
+
+Allocates memory in the heap for an n-\/dimensional vector. 
+
+\begin{DoxyNote}{Note}
+{\ttfamily can\+Delete} member is set to true as default, so the memory is going to freed at destruction 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em n} & the dimension of the vector. If 0 (default), then no space is allocated and vector is known to be null \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_vector_a3ab2d262709f9cb3d8772f0dfdfe9035}\label{class_vector_a3ab2d262709f9cb3d8772f0dfdfe9035}} 
+\index{Vector$<$ T $>$@{Vector$<$ T $>$}!Vector@{Vector}}
+\index{Vector@{Vector}!Vector$<$ T $>$@{Vector$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Vector()}{Vector()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{class_vector}{Vector}}$<$ T $>$\+::\mbox{\hyperlink{class_vector}{Vector}} (\begin{DoxyParamCaption}\item[{const unsigned int}]{n,  }\item[{const T $\ast$const}]{array }\end{DoxyParamCaption})}
+
+
+
+Turns a single dimensional array into an n-\/dimensional vector. 
+
+\begin{DoxyNote}{Note}
+Memory is not freed at destruction as can\+Delete falg is set to false 
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em n} & the dimension of the vector (size of {\ttfamily array}) \\
+\hline
+\mbox{\texttt{ in}}  & {\em array} & the pointer to the start of the array \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_vector_a6def1c4bb2b50483ba82bef4396a7a2c}\label{class_vector_a6def1c4bb2b50483ba82bef4396a7a2c}} 
+\index{Vector$<$ T $>$@{Vector$<$ T $>$}!Vector@{Vector}}
+\index{Vector@{Vector}!Vector$<$ T $>$@{Vector$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{Vector()}{Vector()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+template$<$typename U $>$ \\
+\mbox{\hyperlink{class_vector}{Vector}}$<$ T $>$\+::\mbox{\hyperlink{class_vector}{Vector}} (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_vector}{Vector}}$<$ U $>$ \&\&}]{vec }\end{DoxyParamCaption})}
+
+
+
+Reassigns raw data pointer to the new \mbox{\hyperlink{class_vector}{Vector}} object. 
+
+If the datatypes don\textquotesingle{}t match, each element is casted using a C-\/\+Style caste while copying.
+
+A new memory block is allocated only if the size of the datatypes are not the same. In that case, {\ttfamily can\+Delete} is set to true. Otherwise, the value of {\ttfamily can\+Delete} is inherited from the parameter \mbox{\hyperlink{class_vector}{Vector}} object. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{class_vector_ab9b7469f18c0f9a6d240c041b07ba9f1}\label{class_vector_ab9b7469f18c0f9a6d240c041b07ba9f1}} 
+\index{Vector$<$ T $>$@{Vector$<$ T $>$}!fill@{fill}}
+\index{fill@{fill}!Vector$<$ T $>$@{Vector$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{fill()}{fill()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+template$<$typename F $>$ \\
+void \mbox{\hyperlink{class_vector}{Vector}}$<$ T $>$\+::fill (\begin{DoxyParamCaption}\item[{F}]{func }\end{DoxyParamCaption})}
+
+
+
+Populates the memory block with data. 
+
+The index of each element is passed through {\ttfamily func()} and the result is stored in the element.
+
+\begin{DoxyNote}{Note}
+{\ttfamily func()} should take in {\itshape O\+NE {\ttfamily const unsigned int}} as it\textquotesingle{}s parameter and return a value of the template type.
+\end{DoxyNote}
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\texttt{ in}}  & {\em func} & The functions that indeces are passed through \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{class_vector_a93c1a360221f5e45bf3c73cd03f6e423}\label{class_vector_a93c1a360221f5e45bf3c73cd03f6e423}} 
+\index{Vector$<$ T $>$@{Vector$<$ T $>$}!operator=@{operator=}}
+\index{operator=@{operator=}!Vector$<$ T $>$@{Vector$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+template$<$typename U $>$ \\
+void \mbox{\hyperlink{class_vector}{Vector}}$<$ T $>$\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{class_vector}{Vector}}$<$ U $>$ \&\&}]{vec }\end{DoxyParamCaption})}
+
+
+
+Reassigns raw data pointer to the new \mbox{\hyperlink{class_vector}{Vector}} object. 
+
+If the datatypes don\textquotesingle{}t match, each element is casted using a C-\/\+Style caste while copying.
+
+A new memory block is allocated only if the size of the datatypes are not the same. In that case, {\ttfamily can\+Delete} is set to true. Otherwise, the value of {\ttfamily can\+Delete} is inherited from the parameter \mbox{\hyperlink{class_vector}{Vector}} object. 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

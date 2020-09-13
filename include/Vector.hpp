@@ -2,15 +2,18 @@
 
 #ifndef VECTOR__H_
 #define VECTOR__H_
-
+/*
 #ifndef COLUMN_MAJOR
 #ifndef ROW_MAJOR
 #define ROW_MAJOR
 #endif
 #endif
-
+*/
 #include <type_traits>
+#ifdef VECTOR_DEBUG
 #include <iostream>
+#endif
+#include <exception>
 
 #ifdef VECTOR_DEBUG
 static constexpr const char* const debugMessage1 = "Vector(%u) %-20s 0x%x(0x%x)\n";
@@ -71,18 +74,87 @@ class Vector{
         void operator= (const Vector<U>& vec);
 
         /**
-         * @brief 
+         * @brief Reassigns raw data pointer to the new Vector object
+         * 
+         * If the datatypes don't match, each element is casted using a C-Style caste while copying.
+         * 
+         * A new memory block is allocated only if the size of the datatypes are not the same.
+         * In that case, `canDelete` is set to true. Otherwise, the value of `canDelete` is inherited from
+         * the parameter Vector object.
         */
         template<typename U>
         void operator= (const Vector<U>&& vec);
+
+        /**
+         * @brief Frees the raw array only if `canDelete` is true.
+        */
         ~Vector();
+
+        /**
+         * @brief Returns a reference to the element in the array at index `i`.
+        */
         inline T& operator[] (const unsigned int i);
+
+        /**
+         * @brief Returns a *const* reference to the element in the array at index `i`.
+        */
         inline const T& operator[] (const unsigned int i) const;
+
+        /**
+         * @brief Returns the dimension of the vector.
+        */
         inline unsigned int getN() const;
+
+        /**
+         * @brief Returns the raw data pointer (memeber `array`).
+        */
         inline T* getArray();
+
+        /**
+         * @brief Return a pointer to the raw data pointer as a pointer to *const*.
+        */
         inline const T* getArray() const;
+
+        /**
+         * @brief Adds the 2 vectors and returns a new vector object.
+         * If the dimensions don't match, then a `const char*` is thrown explaining the error
+        */
         template<typename U>
-        Vector<T> operator+ (const Vector<U>& vec2) const;
+        Vector<T> operator+(const Vector<U>& vec) const;
+
+        /**
+         * @brief Adds the vector to this vector
+         * If the dimensions don't match, then a `const char*` is thrown explaining the error
+        */
+        template<typename U>
+        Vector<T>& operator+=(const Vector<U>& vec);
+        
+        /**
+         * @brief Subtracts the 2 vectors and returns a new vector object.
+         * If the dimensions don't match, then a `const char*` is thrown explaining the error
+        */
+        template<typename U>
+        Vector<T> operator-(const Vector<U>& vec) const;
+
+        /**
+         * @brief Subtracts the vector to this vector
+         * If the dimensions don't match, then a `const char*` is thrown explaining the error
+        */
+        template<typename U>
+        Vector<T>& operator-=(const Vector<U>& vec);
+
+        /**
+         * @brief Populates the memory block with data
+         * 
+         * The index of each element is passed through `func()` and
+         * the result is stored in the element.
+         * 
+         * @note `func()` should take in *ONE `const unsigned int`* as it's parameter
+         * and return a value of the template type.
+         * 
+         * @param[in] func The functions that indeces are passed through
+         * 
+        */
         template<typename F>
         void fill(F func);
 };
