@@ -186,6 +186,19 @@ Vector<n,T>& Vector<n,T>::operator*=(const U& val){
     return *this;
 }
 
+template<unsigned int p, typename A, typename B>
+A operator*(const Vector<p,A>& vec1, const Vector<p,B>& vec2){
+    A dProd = (A)0;
+    for(int i = 0; i < p; i++) dProd += vec1.array[i] * (A)vec2.array[i];
+    return dProd;
+}
+
+template<typename A, typename B>
+Vector<3,A> xProd(const Vector<3,A>& vec1, const Vector<3,B>& vec2){
+    Vector<3,A> res;
+    for()
+}
+
 // fill
 template<unsigned int n, typename T>
 template<typename F>

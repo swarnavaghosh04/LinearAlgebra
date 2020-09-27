@@ -78,9 +78,7 @@ class Vector{
         template<typename U>
         void operator= (const Vector<n,U>&& vec);
 
-        /**
-         * @brief Frees the raw array only if `canDelete` is true.
-        */
+        /// @brief Frees the raw array only if `canDelete` is true.
         ~Vector();
 
         
@@ -130,8 +128,13 @@ class Vector{
         template<typename U>
         Vector<n,T>& operator*=(const U& val);
 
+        /// @brief Dot Product
         template<unsigned int p, typename A, typename B>
         friend A operator* (const Vector<p,A>& vec1, const Vector<p,B>& vec2);
+
+        /// @brief Corss Product (3 dimenstion only)
+        template<typename A, typename B>
+        friend Vector<3,A> xProd(const Vector<3,A>& vec1, const Vector<3,B>& vec2);
 
         /**
          * @brief Populates the memory block with data
